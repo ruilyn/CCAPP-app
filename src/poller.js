@@ -147,17 +147,17 @@ class Poller {
       );
       routes['b-bx15'] = bx15Data
         ? transformBusStatus(bx15Data, 'b-bx15')
-        : noBusStatus('b-bx15');
+        : noBusStatus();
 
       const m100Data = await safeFetch(() =>
         fetchBusFeed(feedUrls.busFeed, mtaBusApiKey, 'MTA NYCT_M100', fetchTimeoutMs)
       );
       routes['b-m100'] = m100Data
         ? transformBusStatus(m100Data, 'b-m100')
-        : noBusStatus('b-m100');
+        : noBusStatus();
     } else {
-      routes['b-bx15'] = noBusStatus('b-bx15');
-      routes['b-m100'] = noBusStatus('b-m100');
+      routes['b-bx15'] = noBusStatus();
+      routes['b-m100'] = noBusStatus();
     }
 
     return { routes, alerts };
@@ -183,5 +183,6 @@ function noBusStatus() {
     note: 'Bus API key not configured.',
   };
 }
+
 
 module.exports = Poller;
